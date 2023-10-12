@@ -16,6 +16,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import CardWidget from '../CardWidget/CardWidget';
 import Drawer from '@mui/material/Drawer';
+import { Link } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -199,7 +200,7 @@ export default function PrimarySearchAppBar() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            BlueWave
+            <Link to={"/"} color="white">BlueWave</Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -254,9 +255,9 @@ export default function PrimarySearchAppBar() {
       </AppBar>
       <Drawer anchor="left" open={isDrawerOpen} onClose={toggleDrawer(false)}>
         <DrawerContent>
-          <MenuItems onClick={handleMenuClose}>Inicio </MenuItems>
-          <MenuItems onClick={handleMenuClose}>Productos</MenuItems>
-          <MenuItems onClick={handleMenuClose}>Servicios</MenuItems>
+          <Link to={"/"}><MenuItems onClick={handleMenuClose}>Inicio </MenuItems></Link>
+          <Link to={"/about"}><MenuItems onClick={handleMenuClose}>Acerca de</MenuItems></Link>
+          <Link to={"/contact"}><MenuItems onClick={handleMenuClose}>Contacto</MenuItems></Link>
         </DrawerContent>
       </Drawer>
       {renderMobileMenu}
