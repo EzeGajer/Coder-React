@@ -44,7 +44,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBase = styled(InputBase)((({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
@@ -55,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       width: '20ch',
     },
   },
-}));
+})));
 
 const DrawerContent = styled('div')(({ theme }) => ({
   width: 250, // Ancho del Drawer
@@ -66,12 +66,12 @@ const DrawerContent = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-const MenuItems = styled(MenuItem)(({ theme }) => ({
+const MenuItems = styled(MenuItem)((({ theme }) => ({
   padding: theme.spacing(1, 2),
   '&:hover': {
     backgroundColor: alpha(theme.palette.primary.main, 0.2),
   },
-}));
+})));
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -102,7 +102,6 @@ export default function PrimarySearchAppBar() {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
     setIsDrawerOpen(open);
   };
 
@@ -199,8 +198,9 @@ export default function PrimarySearchAppBar() {
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
+            color="white"
           >
-            <Link to={"/"} color="white">BlueWave</Link>
+            <Link to={"/"} style={{ color: 'white' }}>BlueWave</Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -255,9 +255,11 @@ export default function PrimarySearchAppBar() {
       </AppBar>
       <Drawer anchor="left" open={isDrawerOpen} onClose={toggleDrawer(false)}>
         <DrawerContent>
-          <Link to={"/"}><MenuItems onClick={handleMenuClose}>Inicio </MenuItems></Link>
-          <Link to={"/about"}><MenuItems onClick={handleMenuClose}>Acerca de</MenuItems></Link>
-          <Link to={"/contact"}><MenuItems onClick={handleMenuClose}>Contacto</MenuItems></Link>
+          <Link to={"/"}><MenuItems onClick={handleMenuClose}>Inicio</MenuItems></Link>
+          <Link to="/type/agua"><MenuItems onClick={handleMenuClose}>Agua</MenuItems></Link>
+          <Link to="/type/fuego"><MenuItems onClick={handleMenuClose}>Fuego</MenuItems></Link>
+          <Link to="/type/planta"><MenuItems onClick={handleMenuClose}>Planta</MenuItems></Link>
+          {/* Agrega más tipos de Pokémon según sea necesario */}
         </DrawerContent>
       </Drawer>
       {renderMobileMenu}
