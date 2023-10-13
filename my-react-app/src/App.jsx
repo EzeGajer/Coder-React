@@ -8,6 +8,7 @@ import Type from './pages/Type';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 const App = () => {
   const [pokemonTypes, setPokemonTypes] = useState([]);
 
@@ -38,5 +39,3 @@ const App = () => {
 }
 
 export default App;
-
-

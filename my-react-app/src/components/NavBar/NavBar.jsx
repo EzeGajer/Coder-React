@@ -200,7 +200,7 @@ export default function PrimarySearchAppBar() {
             sx={{ display: { xs: 'none', sm: 'block' } }}
             color="white"
           >
-            <Link to={"/"} style={{ color: 'white' }}>BlueWave</Link>
+            <Link to={"/"} style={{ color: 'white' }}>PokeExplore</Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -256,9 +256,9 @@ export default function PrimarySearchAppBar() {
       <Drawer anchor="left" open={isDrawerOpen} onClose={toggleDrawer(false)}>
         <DrawerContent>
           <Link to={"/"}><MenuItems onClick={handleMenuClose}>Inicio</MenuItems></Link>
-          <Link to="/type/agua"><MenuItems onClick={handleMenuClose}>Agua</MenuItems></Link>
-          <Link to="/type/fuego"><MenuItems onClick={handleMenuClose}>Fuego</MenuItems></Link>
-          <Link to="/type/planta"><MenuItems onClick={handleMenuClose}>Planta</MenuItems></Link>
+          <Link to="/type/water"><MenuItems onClick={handleMenuClose}>Agua</MenuItems></Link>
+          <Link to="/type/fire"><MenuItems onClick={handleMenuClose}>Fuego</MenuItems></Link>
+          <Link to="/type/grass"><MenuItems onClick={handleMenuClose}>Planta</MenuItems></Link>
           {/* Agrega más tipos de Pokémon según sea necesario */}
         </DrawerContent>
       </Drawer>
