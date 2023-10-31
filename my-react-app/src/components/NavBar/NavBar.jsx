@@ -14,7 +14,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import CardWidget from '../CardWidget/CardWidget';
+import CardWidget from '../CartWidget/CartWidget';
 import Drawer from '@mui/material/Drawer';
 import { Link } from 'react-router-dom';
 
@@ -66,14 +66,14 @@ const DrawerContent = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-const MenuItems = styled(MenuItem)((({ theme }) => ({
+const MenuItems = styled(MenuItem)(({ theme }) => ({
   padding: theme.spacing(1, 2),
   '&:hover': {
     backgroundColor: alpha(theme.palette.primary.main, 0.2),
   },
-})));
+}));
 
-export default function PrimarySearchAppBar() {
+export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -145,7 +145,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+        <IconButton size="large" aria-label="show 4 new items" color="inherit">
           <Badge badgeContent={4} color="error">
             <CardWidget />
           </Badge>
@@ -200,20 +200,20 @@ export default function PrimarySearchAppBar() {
             sx={{ display: { xs: 'none', sm: 'block' } }}
             color="white"
           >
-            <Link to={"/"} style={{ color: 'white' }}>PokeExplore</Link>
+            <Link to={"/"} style={{ color: 'white' }}>RopaShop</Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Buscar…"
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+            <IconButton size="large" aria-label="show 4 new items" color="inherit">
               <Badge badgeContent={4} color="error">
                 <CardWidget />
               </Badge>
@@ -256,10 +256,10 @@ export default function PrimarySearchAppBar() {
       <Drawer anchor="left" open={isDrawerOpen} onClose={toggleDrawer(false)}>
         <DrawerContent>
           <Link to={"/"}><MenuItems onClick={handleMenuClose}>Inicio</MenuItems></Link>
-          <Link to="/type/water"><MenuItems onClick={handleMenuClose}>Agua</MenuItems></Link>
-          <Link to="/type/fire"><MenuItems onClick={handleMenuClose}>Fuego</MenuItems></Link>
-          <Link to="/type/grass"><MenuItems onClick={handleMenuClose}>Planta</MenuItems></Link>
-          {/* Agrega más tipos de Pokémon según sea necesario */}
+          <Link to="/categoria/vestidos"><MenuItems onClick={handleMenuClose}>Vestidos</MenuItems></Link>
+          <Link to="/categoria/camisetas"><MenuItems onClick={handleMenuClose}>Camisetas</MenuItems></Link>
+          <Link to="/categoria/pantalones"><MenuItems onClick={handleMenuClose}>Pantalones</MenuItems></Link>
+          {/* Agrega más categorías según sea necesario */}
         </DrawerContent>
       </Drawer>
       {renderMobileMenu}

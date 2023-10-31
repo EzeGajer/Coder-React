@@ -1,7 +1,7 @@
 import React from 'react'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-const CardWidget = () => {
+const CartWidget = () => {
   return (
     <div>
       <ShoppingCartIcon></ShoppingCartIcon>
@@ -9,4 +9,4 @@ const CardWidget = () => {
   )
 }
 
-export default CardWidget
+export default CartWidget

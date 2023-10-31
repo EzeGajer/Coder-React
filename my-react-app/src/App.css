@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+  }
+  
+  .card {
+    margin: 10px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 250px;
+    overflow: hidden;
+  }
+  
+  .card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover; /* Añadido para evitar la distorsión */
+    transition: transform 0.2s;
+  }
+  
+  .card h2 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+  }
+  
+  .card p {
+    font-size: 1rem;
+    color: #555;
+    margin: 10px 0;
+  }
+  
+  .card button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .card button:hover {
+    background-color: #0056b3;
+  }
+  
+  .card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Agregamos estilos para la clase product-card */
+.product-card {
+    /* Estilos de tu elección */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: 0.5s;  
+}
+
+.product-card:hover {
+    transform: scale(1.01);
+    transition: 0.5s;
+}
+
+.item-list-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .item-list-container h1 {
+    margin-bottom: 20px;
+  }
+  
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    transition: 0.3s;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .product-card img {
+    object-fit: cover;
+    height: 250px;
+  }  
+  .product-card button {
+    margin-top: 10px;
+  }
+  
+  
