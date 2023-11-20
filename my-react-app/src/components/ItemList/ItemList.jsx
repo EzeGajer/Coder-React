@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Card, CardContent, CardMedia, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebaseConfig";
+import { collection, getDocs, query } from "firebase/firestore";
+import { db } from '../../firebase/firebaseConfig';
 
 const ItemList = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
     const fetchItems = async () => {
-      const itemsCollection = collection(db, "items");
-      const itemsSnapshot = await getDocs(itemsCollection);
-      const itemsData = itemsSnapshot.docs.map((doc) => doc.data());
-      setItems(itemsData);
+      try {
+        const itemsCollection = collection(db, "items");
+        const itemsQuery = query(itemsCollection);
+        const itemsSnapshot = await getDocs(itemsQuery);
+        const itemsData = itemsSnapshot.docs.map((doc) => doc.data());
+        setItems(itemsData);
+      } catch (error) {
+        console.error("Error al cargar los productos:", error);
+      }
     };
 
     fetchItems();
@@ -25,20 +30,20 @@ const ItemList = () => {
           <Card>
             <CardMedia
               component="img"
-              alt={item.name}
+              alt={item.nombre}
+              image={item.imagen}
               height="140"
-              image={`/images/${item.id}.jpg`} // Cambia la ruta según dónde almacenas las imágenes
             />
             <CardContent>
               <Typography variant="h6" component="div">
-                {item.name}
+                {item.nombre}
               </Typography>
               <Typography variant="body2" color="textSecondary">
-                Precio: ${item.price}
+                Precio: ${item.precio}
               </Typography>
-              <Link to={`/item/${item.id}`}>
+              <Link to={`/items/${item.id}`} style={{ textDecoration: 'none' }}>
                 <Button variant="contained" color="primary">
-                  Detalles
+                  Ver Detalle
                 </Button>
               </Link>
             </CardContent>

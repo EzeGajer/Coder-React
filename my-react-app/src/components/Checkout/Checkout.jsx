@@ -10,13 +10,11 @@ const Checkout = () => {
       {cart.map((item) => (
         <div key={item.id}>
           <h3>{item.name}</h3>
-          <p>Precio: ${item.price}</p>
-          {/* Otros detalles del producto */}
+          <p>Precio: ${item.precio}</p>
         </div>
       ))}
       <p>Total: ${total}</p>
       <button onClick={clearCart}>Vaciar carrito</button>
-      {/* Agrega un formulario para completar la compra */}
     </div>
   );
 };

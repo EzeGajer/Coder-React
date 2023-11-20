@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -17,6 +17,9 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import CardWidget from '../CartWidget/CartWidget';
 import Drawer from '@mui/material/Drawer';
 import { Link } from 'react-router-dom';
+import { useCart } from '../../CartContext';
+import { db } from '../../firebase/firebaseConfig';
+import { collection, query, getDocs, where } from 'firebase/firestore';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -58,7 +61,7 @@ const StyledInputBase = styled(InputBase)((({ theme }) => ({
 })));
 
 const DrawerContent = styled('div')(({ theme }) => ({
-  width: 250, // Ancho del Drawer
+  width: 250,
   padding: theme.spacing(2),
   display: 'flex',
   flexDirection: 'column',
@@ -73,10 +76,12 @@ const MenuItems = styled(MenuItem)(({ theme }) => ({
   },
 }));
 
-export default function Navbar() {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+const NavBar = () => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  const [categories, setCategories] = useState([]);
+  const [subcategories, setSubcategories] = useState([]);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -104,6 +109,27 @@ export default function Navbar() {
     }
     setIsDrawerOpen(open);
   };
+
+  const getCategories = async () => {
+    const categoriesCollection = collection(db, 'categories');
+    const categoriesQuery = query(categoriesCollection);
+    const categoriesSnapshot = await getDocs(categoriesQuery);
+    const categoriesData = categoriesSnapshot.docs.map((doc) => doc.data());
+    setCategories(categoriesData);
+  };
+
+  const getSubcategories = async () => {
+    const subcategoriesCollection = collection(db, 'subcategories');
+    const subcategoriesQuery = query(subcategoriesCollection);
+    const subcategoriesSnapshot = await getDocs(subcategoriesQuery);
+    const subcategoriesData = subcategoriesSnapshot.docs.map((doc) => doc.data());
+    setSubcategories(subcategoriesData);
+  };
+
+  useEffect(() => {
+    getCategories();
+    getSubcategories();
+  }, []);
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -145,7 +171,7 @@ export default function Navbar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new items" color="inherit">
+        <IconButton size="large" aria-label="show items in cart" color="inherit">
           <Badge badgeContent={4} color="error">
             <CardWidget />
           </Badge>
@@ -179,6 +205,8 @@ export default function Navbar() {
     </Menu>
   );
 
+  const { cart } = useCart();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar>
@@ -200,7 +228,7 @@ export default function Navbar() {
             sx={{ display: { xs: 'none', sm: 'block' } }}
             color="white"
           >
-            <Link to={"/"} style={{ color: 'white' }}>RopaShop</Link>
+            <Link to={'/'} style={{ color: 'white' }}>RopaShop</Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -213,8 +241,8 @@ export default function Navbar() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new items" color="inherit">
-              <Badge badgeContent={4} color="error">
+            <IconButton size="large" aria-label="show items in cart" color="inherit">
+              <Badge badgeContent={cart.length} color="error">
                 <CardWidget />
               </Badge>
             </IconButton>
@@ -255,15 +283,23 @@ export default function Navbar() {
       </AppBar>
       <Drawer anchor="left" open={isDrawerOpen} onClose={toggleDrawer(false)}>
         <DrawerContent>
-          <Link to={"/"}><MenuItems onClick={handleMenuClose}>Inicio</MenuItems></Link>
-          <Link to="/categoria/vestidos"><MenuItems onClick={handleMenuClose}>Vestidos</MenuItems></Link>
-          <Link to="/categoria/camisetas"><MenuItems onClick={handleMenuClose}>Camisetas</MenuItems></Link>
-          <Link to="/categoria/pantalones"><MenuItems onClick={handleMenuClose}>Pantalones</MenuItems></Link>
-          {/* Agrega más categorías según sea necesario */}
+          <Link to={'/'}><MenuItems onClick={handleMenuClose}>Inicio</MenuItems></Link>
+          {categories.map((category) => (
+            <Link to={`/categoria/${category.ID}`} key={category.ID}>
+              <MenuItems onClick={handleMenuClose}>{category.nombre}</MenuItems>
+            </Link>
+          ))}
+          {subcategories.map((subcategory) => (
+            <Link to={`/subcategoria/${subcategory.ID}`} key={subcategory.ID}>
+              <MenuItems onClick={handleMenuClose}>{subcategory.nombre}</MenuItems>
+            </Link>
+          ))}
         </DrawerContent>
       </Drawer>
       {renderMobileMenu}
       {renderMenu}
     </Box>
   );
-}
+};
+
+export default NavBar;
